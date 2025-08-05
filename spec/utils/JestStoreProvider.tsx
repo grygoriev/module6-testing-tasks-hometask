@@ -1,10 +1,10 @@
-import { Provider } from "react-redux";
-import { store } from "src/store/configureStore";
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import taskListReducer from 'src/store/taskSlice';
 
-type Props = {
-    children: React.ReactNode
-}
-
-export const JestStoreProvider = ({ children }: Props) => (
-    <Provider store={store}>{children}</Provider>
-);
+export const JestStoreProvider: React.FC<{ children: React.ReactNode }> = ({
+	children,
+}) => {
+	const freshStore = configureStore({ reducer: { taskList: taskListReducer } });
+	return <Provider store={freshStore}>{children}</Provider>;
+};
